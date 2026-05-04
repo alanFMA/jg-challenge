@@ -1,0 +1,3 @@
+[submodule "apps/jg-wallet-service"]
+	path = apps/jg-wallet-service
+	url = https://github.com/alanFMA/jg-wallet-service.git

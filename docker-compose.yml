@@ -1,0 +1,29 @@
+services:
+  # PostgreSQL para o nosso MikroORM
+  postgres:
+    image: postgres:16-alpine # A vaga cita PG 18, mas a versão estável atual é a 16/17. Usaremos a 16.
+    environment:
+      POSTGRES_USER: jungle_user
+      POSTGRES_PASSWORD: jungle_password
+      POSTGRES_DB: igaming_wallet
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  # LocalStack para emular o AWS SQS depois
+  localstack:
+    image: localstack/localstack
+    ports:
+      - "4566:4566" # Edge port
+      - "4510-4559:4510-4559" # External services port range
+    environment:
+      - SERVICES=sqs
+      - DEBUG=1
+      - DOCKER_HOST=unix:///var/run/docker.sock
+    volumes:
+      - "${LOCALSTACK_VOLUME_DIR:-./volume}:/var/lib/localstack"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+
+volumes:
+  pgdata:
