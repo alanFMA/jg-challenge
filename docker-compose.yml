@@ -13,7 +13,7 @@ services:
 
   # LocalStack para emular o AWS SQS depois
   localstack:
-    image: localstack/localstack
+    image: localstack/localstack:3.4.0
     ports:
       - "4566:4566" # Edge port
       - "4510-4559:4510-4559" # External services port range
